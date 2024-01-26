@@ -19,7 +19,7 @@ interface AwsStorageInterface
      * Returns AwsUrlInterface instance and throws an exception in case
      * connection or authorization errors.
      *
-     * @param string $fileName
+     * @param  string $fileName
      * @return AwsUrlInterface
      * @throws Exception
      */

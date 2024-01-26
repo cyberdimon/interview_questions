@@ -8,7 +8,7 @@ final class FileStorageRepository
     /**
      * Returns image URL or null.
      *
-     * @param $fileName
+     * @param  $fileName
      * @return string|null
      */
     public function getUrl($fileName): ?string
@@ -18,7 +18,7 @@ final class FileStorageRepository
     /**
      * Returns whether file exists or not.
      *
-     * @param string $fileName
+     * @param  string $fileName
     5
      * @return bool
      */
@@ -29,7 +29,7 @@ final class FileStorageRepository
     /**
      * Deletes a file in the filesystem and throws an exception in case of errors.
      *
-     * @param string $fileName
+     * @param  string $fileName
      * @return void
      */
     public function deleteFile(string $fileName): void
@@ -40,7 +40,7 @@ final class FileStorageRepository
 /**
  * Saves a file in the filesystem and throws an exception in case of errors.
  *
- * @param string $fileName
+ * @param  string $fileName
  * @return void
  */
 public function saveFile(string $fileName): void

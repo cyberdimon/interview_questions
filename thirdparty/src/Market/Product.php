@@ -1,5 +1,7 @@
 <?php
+
 namespace Market;
+
 /**
  * Represents a single product record stored in DB.
  */

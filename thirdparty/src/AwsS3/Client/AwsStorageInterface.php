@@ -1,5 +1,7 @@
 <?php
+
 namespace AwsS3\Client;
+
 useuseAwsS3\AwsUrlInterface;
 Exception;
 /**

@@ -1,5 +1,7 @@
 <?php
+
 namespace Market;
+
 /**
  * Repository for Market's filesystem and static storage.
  */

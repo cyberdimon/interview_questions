@@ -1,5 +1,7 @@
 <?php
 
+namespace ThirdParty;
+
 class TicketRepository
 {
     public function load($ticketID)

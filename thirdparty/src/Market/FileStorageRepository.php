@@ -1,6 +1,6 @@
 <?php
 
-namespace Market;
+namespace ThirdParty\Market;
 
 /**
  * Repository for Market's filesystem and static storage.

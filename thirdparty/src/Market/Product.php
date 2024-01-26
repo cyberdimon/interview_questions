@@ -1,6 +1,6 @@
 <?php
 
-namespace Market;
+namespace ThirdParty\Market;
 
 /**
  * Represents a single product record stored in DB.

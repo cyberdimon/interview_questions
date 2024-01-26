@@ -1,8 +1,8 @@
 <?php
 
-namespace AwsS3\Client;
+namespace ThirdParty\AwsS3\Client;
 
-use AwsS3\AwsUrlInterface;
+use ThirdParty\AwsS3\AwsUrlInterface;
 use Exception;
 
 /**

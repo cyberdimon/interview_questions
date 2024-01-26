@@ -1,0 +1,20 @@
+# Get Product List
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+
+[
+  {
+    "id": 1,
+    "name": "Example product 1",
+    "description": "Example product 1 description",
+    "image_url": "https://cdn.market.com/images/products/product_1.png",
+    "category": "category-1"
+  },
+  {
+    "id": 4,
+    "name": "Example product 4",
+    "description": "Example product 4 description",
+    "image_url": "https://cdn.market.com/images/products/product_4.png",
+    "category": "category-1"
+  }
+]

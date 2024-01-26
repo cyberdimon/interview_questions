@@ -1,0 +1,4 @@
+GET /products?category=category-1&sort=name HTTP/1.1
+Host: api.market.com
+Authorization: Bearer 2YotnFZFEjr1zCsicMWpAA
+Accept: application/json

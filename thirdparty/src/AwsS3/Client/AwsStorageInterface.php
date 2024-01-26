@@ -2,8 +2,9 @@
 
 namespace AwsS3\Client;
 
-useuseAwsS3\AwsUrlInterface;
-Exception;
+use AwsS3\AwsUrlInterface;
+use Exception;
+
 /**
  *
  */

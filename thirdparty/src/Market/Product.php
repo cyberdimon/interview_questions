@@ -32,8 +32,9 @@ class Product
         if ($this->storage->fileExists($this->imageFileName) !== true) {
             return null;
         }
+
+        return $this->storage->getUrl($this->imageFileName);
     }
-    return $this->storage->getUrl($this->imageFileName);
     /**
      * Returns whether image was successfully updated or not.
      *
@@ -49,10 +50,12 @@ class Product
             $this->storage->saveFile($this->imageFileName);
         } catch (\Exception $exception) {
             /*...*/
+
+            return false;
         }
-        return false;
         /*...*/
+
+        return true;
     }
-    return true;
     /*...*/
 }

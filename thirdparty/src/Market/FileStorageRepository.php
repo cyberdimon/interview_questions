@@ -36,13 +36,14 @@ final class FileStorageRepository
     {
         /*...*/
     }
-}
-/**
- * Saves a file in the filesystem and throws an exception in case of errors.
- *
- * @param  string $fileName
- * @return void
- */
-public function saveFile(string $fileName): void
-{
+
+    /**
+     * Saves a file in the filesystem and throws an exception in case of errors.
+     *
+     * @param  string $fileName
+     * @return void
+     */
+    public function saveFile(string $fileName): void
+    {
+    }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace ThirdParty\AwsS3;
+namespace AwsS3;
 
 /**
  *

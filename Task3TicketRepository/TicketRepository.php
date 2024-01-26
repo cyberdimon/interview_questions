@@ -1,12 +1,11 @@
 <?php
 
-namespace ThirdParty;
 
 class TicketRepository
 {
     public function load($ticketID)
     {
-        return Ticket::find()->where(['id' => $ticketId])->one();
+        return \ThirdParty\Ticket::find()->where(['id' => $ticketId])->one();
     }
     public function save($ticket)
     {

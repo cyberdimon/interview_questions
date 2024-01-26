@@ -5,6 +5,12 @@
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.8"
     },
+    "autoload": {
+        "psr-4": {
+            "CyberDimon\\": "src/",
+            "ThirdParty\\": "thirdparty/src/"
+        }
+    },
     "scripts": {
         "check-style": "phpcs --standard=PSR12 --ignore=vendor/ ./",
         "fix-style": "phpcbf --standard=PSR12 --ignore=vendor/ ./"

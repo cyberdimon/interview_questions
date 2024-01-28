@@ -6,7 +6,7 @@ services:
     image: nginx:alpine
     container_name: app-nginx
     ports:
-      - "8099:8090"
+      - "8099:8091"
       - "453:443"
     volumes:
       - ./app:/var/www/html

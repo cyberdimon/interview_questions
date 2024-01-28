@@ -9,6 +9,9 @@ docker-rebuild:
 	docker compose build
 	docker compose up -d
 
+check-mysql:
+	docker compose exec db mysql --version
+
 check-php:
 	docker compose exec php php -v
 

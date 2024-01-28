@@ -1,41 +1,43 @@
-# #5 Student Grades SQL
+SHOW DATABASES;
+CREATE DATABASE students_marks CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE students_marks;
+SHOW TABLES;
 
-You have a project that uses a library.
+-- DDL from pdf (without keys)
 
-## Task A. Data Selection
-
-Given a database with students and their grades. The `students` table contains the marks of each student, and the `grade` table contains the mapping of marks to the student's grade.
-
-You need to write a query to the database that includes three columns: `name`, `grade`, and `mark`.
-- The data should be ordered by descending grades, with higher grades displayed first.
-- If there are multiple students with the same grade (8-10), order these specific students by their names in alphabetical order.
-- If the grade is below 8, use "low" as their name and list them by grades in descending order.
-- If there are multiple students with the same grade (1-7), order these specific students by their grades in ascending order.
-
-## Task B. DDL Modification
-
-It is assumed that the table with students will store data for more than two million students and will continue to grow. How would you modify the database tables, considering that the `grade` field from the `grade` table is always involved in queries to retrieve student data?
-
-```sql
 create table grade
 (
-    grade int null,
-    min_mark int null,
-    max_mark int null
+ grade int null,
+ min_mark int null,
+ max_mark int null
 );
 
 create table students
 (
-    id int null,
-    name varchar(100) null,
-    marks int null
+ id int null,
+ name varchar(100) null,
+ marks int null
 );
-```
 
-## Solution A.
-```sql
+show tables;
+
+INSERT INTO students (name, marks) VALUES
+('Liam', 87), ('Olivia', 65), ('Maria', 95),
+('James', 64), ('Robert', 83), ('John', 95);
+
+SELECT * FROM `students`;
+
+INSERT INTO grade (grade, min_mark, max_mark) VALUES
+(1, 0, 9), (2, 10, 19), (3, 20, 29),
+(4, 30, 39), (5, 40, 49), (6, 50, 59),
+(7, 60, 69), (8, 70, 79), (9, 80, 89),
+(10, 90, 100);
+
+SELECT * FROM `grade`;
+
+-- SOLUTION FOR A (alternative solution after few alterings in a B section)
 SELECT
-    -- bad studs are nameless )))
+	-- bad studs are nameless )))
     CASE
         WHEN g.grade >= 8 THEN s.name
         ELSE 'low'
@@ -46,7 +48,7 @@ FROM
     students s
 JOIN
     -- have 10 grades, but only 6 real studs
-    grade g ON s.marks BETWEEN g.min_mark AND g.max_mark
+	grade g ON s.marks BETWEEN g.min_mark AND g.max_mark
 ORDER BY
     -- high grades first
     g.grade DESC,
@@ -58,14 +60,7 @@ ORDER BY
     CASE
         WHEN g.grade < 8 THEN g.grade
     END ASC;
-```
-
-**Result**  
-![Selection](selection.png)
-
-## Solution B.
-
-```sql
+   
 -- SOLUTION FOR B
 
 -- ADD PRIMARY KEYs
@@ -84,7 +79,7 @@ REFERENCES grade(id);
 -- upgrade data for new relation!
 UPDATE students s
 JOIN (
-    -- EACH "STUD ID" GETS "GRADE ID"
+	-- EACH "STUD ID" GETS "GRADE ID"
     SELECT
         s.id,
         g.id AS grade_id
@@ -98,12 +93,15 @@ SET s.grade_id = ranked_grades.grade_id;
 -- additional indexes for better joins
 ALTER TABLE students ADD INDEX idx_grade_id (grade_id);
 ALTER TABLE grade ADD INDEX idx_id (id);
-```
-**Relation**  
-![Selection](relation.png)
 
-### ALTERNATIVE SOLUTION FOR TASK A 
-```sql
+-- checks
+DESCRIBE grade;
+SHOW INDEX FROM grade;
+SELECT * FROM grade;
+DESCRIBE students;
+SHOW INDEX FROM students;
+SELECT * FROM students;
+
 -- ALTERNATIVE SOLUTION FOR A, after structural alterings:
 -- Faster SELECT and JOIN operations
 -- Better JOIN operation
@@ -126,10 +124,8 @@ ORDER BY
     CASE
         WHEN g.grade < 8 THEN g.grade
     END ASC;
-```
 
-### Sharding, replication and clustering
-```sql
+
 -- Partitioning (sharding)
 -- Foreign keys cannot be used with partitioning,
 -- but this can be a good alternative.
@@ -155,25 +151,3 @@ PARTITION BY RANGE COLUMNS(marks) (
 -- both are high available.
 -- CLUSTERING is better for transactions.
 -- I would use replication with load balancer here.
-```
-
-## CACHING and config tweaking
-in `my.cnf` file
-
-cache for selects:
-```
-query_cache_type = 1
-query_cache_size = 64M
-```
-
-additional, but better to be tested before production:  
-(like most things in section B, actually)
-```
-query_cache_min_res_unit = 512
-innodb_buffer_pool_size = 1G
-tmp_table_size = 64M
-max_heap_table_size = 64M
-sort_buffer_size = 4M
-read_buffer_size = 2M
-join_buffer_size = 2M
-```

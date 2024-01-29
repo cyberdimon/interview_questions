@@ -34,4 +34,5 @@ services:
 
 ## Solution
 
-Look in `docker-compose.yml`
+Look files in this dir.  
+Create /storage/mysql dir for mysql data storage.

@@ -1,0 +1,193 @@
+openapi: 3.0.0
+info:
+  title: API
+  description: Shop
+  version: 1.0.0
+paths:
+  /products:
+    get:
+      summary: Retrieve a list of products
+      description: Retrieve a list of products optionally filtered by category and sorted by name.
+      parameters:
+        - name: category
+          in: query
+          description: Filter products by category
+          required: false
+          schema:
+            type: string
+        - name: sort
+          in: query
+          description: Sort products by name
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of products
+          content:
+            application/json:
+              example: |
+                [
+                  {
+                    "id": 1,
+                    "name": "Example product 1",
+                    "description": "Example product 1 description",
+                    "image_url": "https://cdn.market.com/images/products/product_1.png",
+                    "category": "category-1",
+                    "isFavorite": false
+                  },
+                  {
+                    "id": 4,
+                    "name": "Example product 4",
+                    "description": "Example product 4 description",
+                    "image_url": "https://cdn.market.com/images/products/product_4.png",
+                    "category": "category-1",
+                    "isFavorite": true
+                  }
+                ]
+  /products/{productId}/favorite:
+    post:
+      summary: Add product to favorites
+      description: Add a product to the user's favorites list.
+      parameters:
+        - name: productId
+          in: path
+          description: The ID of the product to add to favorites
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Product added to favorites successfully
+  /products/favorites:
+    get:
+      summary: Retrieve favorite products
+      description: Retrieve a list of favorite products for the authenticated user.
+      parameters:
+        - name: category
+          in: query
+          description: Filter favorite products by category
+          required: false
+          schema:
+            type: string
+        - name: sort
+          in: query
+          description: Sort favorite products by name
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of favorite products
+          content:
+            application/json:
+              example: |
+                [
+                  {
+                    "id": 4,
+                    "name": "Example product 4",
+                    "description": "Example product 4 description",
+                    "image_url": "https://cdn.market.com/images/products/product_4.png",
+                    "category": "category-1"
+                  }
+                ]
+  /users/{userId}/favorites:
+    get:
+      summary: Retrieve user's favorite products
+      description: Retrieve a list of favorite products for the specified user.
+      parameters:
+        - name: userId
+          in: path
+          description: The ID of the user whose favorite products to retrieve
+          required: true
+          schema:
+            type: integer
+        - name: category
+          in: query
+          description: Filter favorite products by category
+          required: false
+          schema:
+            type: string
+        - name: sort
+          in: query
+          description: Sort favorite products by name
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of favorite products for the specified user
+          content:
+            application/json:
+              example: |
+                [
+                  {
+                    "id": 4,
+                    "name": "Example product 4",
+                    "description": "Example product 4 description",
+                    "image_url": "https://cdn.market.com/images/products/product_4.png",
+                    "category": "category-1"
+                  }
+                ]
+  /products/{productId}/images/upload:
+    post:
+      summary: Upload product images
+      description: Upload additional images for a product to AWS S3.
+      parameters:
+        - name: productId
+          in: path
+          description: The ID of the product to upload images for
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                images:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        '200':
+          description: Images uploaded successfully
+        '400':
+          description: Invalid request
+        '500':
+          description: Internal server error
+
+  /products/{productId}/images:
+    get:
+      summary: Retrieve product images
+      description: Retrieve all images associated with a product.
+      parameters:
+        - name: productId
+          in: path
+          description: The ID of the product to retrieve images for
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A list of product images
+          content:
+            application/json:
+              example: |
+                [
+                  {
+                    "id": 1,
+                    "url": "https://s3.amazonaws.com/example-bucket/product_1_image_1.jpg"
+                  },
+                  {
+                    "id": 2,
+                    "url": "https://s3.amazonaws.com/example-bucket/product_1_image_2.jpg"
+                  }
+                ]
+        '404':
+          description: Product not found
+        '500':
+          description: Internal server error

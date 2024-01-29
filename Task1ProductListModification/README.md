@@ -1,3 +1,12 @@
+For this task, the description is very long, so I put it on a separate `README_task_description.md` file.
+
+### Solution A. REST API
+Serve `index.html` by `http-server` and interact with `swagger.yaml` file
+
+![swagger](swagger.png)
+
+### Solution B. Product Class
+```php
 <?php
 namespace Market;
 
@@ -81,3 +90,22 @@ class Product
         }
     }
 }
+```
+
+### Solution C. Describe tests
+
+#### Unit Tests:
+1. **Product Class Tests**:
+`getImageUrl()` , `updateImage()`
+2. **FileStorageRepository Tests**:
+`getUrl()`, `fileExists()`,`deleteFile()`
+3. **AWS S3 Integration Tests**:
+`getUrl()`, `AwsStorageInterface`, `isAuthorized()`
+
+#### API Tests:
+1. **Product API Endpoint Tests**:
+- GET `/products/{productId}`
+- POST `/products/{productId}/images`
+2. **File Storage API Tests**:
+- GET `/files/{fileName}`
+- GET `/files/{fileName}/exists`
